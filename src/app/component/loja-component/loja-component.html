@@ -1,0 +1,51 @@
+<h2 class="mb-4 text-center">Cadastro de Loja</h2>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input class="form-control" [(ngModel)]="nomeloja" placeholder="Nome da Loja">
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" [(ngModel)]="bairroloja" placeholder="Bairro">
+            </div>
+            <div class="col-md-12">
+              <input class="form-control" [(ngModel)]="enderecoloja" placeholder="Endereço">
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" [(ngModel)]="cnpjloja" placeholder="CNPJ">
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" [(ngModel)]="telefoneloja" placeholder="Telefone">
+            </div>
+            <div class="col-12 text-end">
+              <button class="btn btn-primary" (click)="adicionar()">Adicionar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul class="list-group mb-3">
+        @for (l of lojas; track l.id) {
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong>{{l.nome}}</strong><br>
+              Bairro: {{l.bairro}}<br>
+              Endereço: {{l.endereco}}<br>
+              CNPJ: {{l.cnpj}}<br>
+              Telefone: {{l.telefone}}
+            </div>
+            <button class="btn btn-sm btn-outline-danger" (click)="remover(l.id)">Remover</button>
+          </li>
+        }
+      </ul>
+
+      @if(lojas.length === 0) {
+        <div class="alert alert-info text-center">Nenhuma loja cadastrada</div>
+      }
+    </div>
+  </div>
+</div>

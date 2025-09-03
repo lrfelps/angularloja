@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-basic": {
+    "angularBasico": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -25,8 +25,13 @@
               }
             ],
             "styles": [
-              "src/styles.css"
-            ]
+            "src/styles.css",
+            "node_modules/bootstrap/dist/css/bootstrap.min.css"
+
+            ],
+            "scripts": [
+                  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+                ]
           },
           "configurations": {
             "production": {
@@ -56,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-basic:build:production"
+              "buildTarget": "angularBasico:build:production"
             },
             "development": {
-              "buildTarget": "angular-basic:build:development"
+              "buildTarget": "angularBasico:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,11 +87,19 @@
               }
             ],
             "styles": [
-              "src/styles.css"
-            ]
+              "src/styles.css",
+               "node_modules/bootstrap/dist/css/bootstrap.min.css"
+
+            ],
+            "scripts": [
+                  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+                ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
