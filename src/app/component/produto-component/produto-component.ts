@@ -16,15 +16,35 @@ export class ProdutoComponent implements OnInit {
 
   produtos: ProdutoModel[]=[];
   novoNome = '';
+  novoDescricao = '';
+  novoPreco = '';
+  erro = '';
+
+  loading = false;
 
   ngOnInit(){
     this.carregar();
   }
 
   carregar(){
-    this.produtos = this.service.listar();
+    this.loading = true;
+    this.service.listar()
+        //inscreve a reaçao do resultado do observable
+        .subscribe({
+          next: prod => {
+            this.produtos = prod;
+            this.loading = false;
+          },
+          error: e => {
+            this.erro = e.messsage;
+            this.loading = false;
+          }
+
+
+        })
   }
 
+  /*
   adicionar(){
     const nome= this.novoNome.trim();
     if(!nome) return;
@@ -37,7 +57,7 @@ export class ProdutoComponent implements OnInit {
       this.service.remover(id);
       this.carregar();
     }
-
+*/
 
 
 }
