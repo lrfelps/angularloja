@@ -18,6 +18,17 @@ export class ProdutoService {
     .pipe(catchError(this.handle));
   }
 
+  adicionar (produto: ProdutoModel): Observable<ProdutoModel> {
+      return this.http.post<ProdutoModel>(`${this.base}/salvar`, produto)
+      .pipe(catchError(this.handle));
+  }
+
+  remover(id : string): Observable<string>{
+    return this.http.post(`${this.base}/apagar/${id}`, null, {responseType: 'text'})
+    .pipe(catchError(this.handle));
+  }
+
+
   private handle(err: HttpErrorResponse){
     const msg = err.error?.message || err.error?.erro ||
       err.message || 'Erro inesperado'

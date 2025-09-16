@@ -2,6 +2,7 @@
 
 @if (loading) {<div class="alert alert-info"></div>}
 @if (erro) {<div class="alert alert-danger"> {{erro}}</div>}
+@if (ok) {<div class="alert alert-success"> {{ok}}</div>}
 
 <div class="row g-2 align-items-center mb-3">
     <div class="col-sm-6 col-md-4">
@@ -9,9 +10,19 @@
                       [(ngModel)]="novoNome"
                       placeholder="Nome do produto" >
     </div>
-    <!-- <div class="col-auto">
+    <div class="col-sm-6 col-md-4">
+      <input class="form-control"
+                    [(ngModel)]="novoDescricao"
+                    placeholder="Descricao do Produto" >
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <input class="form-control" type="number"
+                  [(ngModel)]="novoPreco"
+                  placeholder="Preco do produto" >
+</div>
+    <div class="col-auto">
         <button class="btn btn-primary" (click)="adicionar()">Adicionar</button>
-    </div>-->
+    </div>
 </div>
 
 <ul class="list-group mb-3">
@@ -21,6 +32,9 @@
             <span>{{p.nome}} - {{'R$ '+ p.preco.toFixed(2)}} -
             {{p.descricao}}
             </span>
+            <button class="btn btn-sm btn-outline-danger"
+            (click)="remover(p.id)">Remover</button>
+
         </li>
       }
 </ul>

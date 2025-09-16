@@ -19,6 +19,7 @@ export class ProdutoComponent implements OnInit {
   novoDescricao = '';
   novoPreco = '';
   erro = '';
+  ok = '';
 
   loading = false;
 
@@ -44,20 +45,58 @@ export class ProdutoComponent implements OnInit {
         })
   }
 
-  /*
   adicionar(){
-    const nome= this.novoNome.trim();
-    if(!nome) return;
-    this.service.adicionar(nome);
-    this.novoNome ='';
-    this.carregar();
+    this.erro = '';
+    const precoNum = Number(this.novoPreco);
+    if(!this.novoNome.trim()){
+      this.erro = 'Informe o Nome!'
+      return;
+    }
+    if(!this.novoDescricao.trim()){
+      this.erro = 'Informe a Descrição!'
+      return;
+    }
+    if(Number.isNaN(precoNum) || precoNum < 0){
+      this.erro = 'Valor incorreto!'
+      return;
+    }
+
+    //nomes no payload precisa ser igual ao o que esta na API
+    const payload : ProdutoModel={
+      id:'',
+      nome: this.novoNome ,
+      descricao: this.novoDescricao,
+      preco: precoNum
+    }
+
+    this.loading = true;
+    this.service.adicionar(payload).subscribe({
+      next: (p) => {
+        this.ok = `Produto ${p.nome} salvo com sucesso!`
+        this.loading = false;
+        this.novoNome = '';
+        this.novoDescricao = '';
+        this.novoPreco = '';
+        this.carregar();
+        setTimeout(() => this.ok = '', 3000);
+      },
+        error: (e) => {
+          this.erro = e.messsage || 'Falha ao salvar o produto. ';
+          this.loading = false;
+        }
+    })
   }
 
-    remover(id: number){
-      this.service.remover(id);
+  remover(id: string){
+    this.service.remover(id).subscribe({
+      next: (msg: string) => {
+      this.ok = msg || "Produto Apagado.";
       this.carregar();
-    }
-*/
-
-
+      setTimeout(() => this.ok = '', 3000);
+    },
+      error: e=> {
+        this.erro = e.messsage || "Deu ruim";
+      }
+  })
+}
 }
