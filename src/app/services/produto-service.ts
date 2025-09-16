@@ -1,5 +1,5 @@
+import { ProdutoModel } from './../models/produtoModel';
 import { Injectable, inject } from '@angular/core';
-import { ProdutoModel } from '../models/produtoModel';
 import { Observable, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
@@ -28,6 +28,10 @@ export class ProdutoService {
     .pipe(catchError(this.handle));
   }
 
+  editar(id: string, produto : ProdutoModel): Observable<ProdutoModel>{
+    return this.http.post<ProdutoModel>(`${this.base}/editar/${id}`, produto)
+    .pipe(catchError(this.handle));
+  }
 
   private handle(err: HttpErrorResponse){
     const msg = err.error?.message || err.error?.erro ||
